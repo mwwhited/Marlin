@@ -17,6 +17,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Customized by Matthew Whited (c) 2020 to support modifed k8200
+ *  + Change Z-axis screw to T8 8mm 4 lead 2mm pitch machined thread
+ *  + Changed X and Y-axis belts and pulleys to 2mm pitch with 20 teeth drive gear
  *
  */
 #pragma once
@@ -48,7 +52,7 @@
  */
 
 // VM8201 Display unit
-#define K8200_VM8201
+// #define K8200_VM8201
 // K8204 Z axis upgrade rod and coupler -> TODO
 // #define K8200_K8204
 // K8203 direct drive extruder -> TODO
@@ -87,7 +91,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(K8200, @CONSULitAS)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(K8200, @mwwhited)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -102,7 +106,7 @@
  */
 
 // Show the Marlin bootscreen on startup. ** ENABLE FOR PRODUCTION **
-#define SHOW_BOOTSCREEN
+//#define SHOW_BOOTSCREEN
 
 // Show the bitmap in Marlin/_Bootscreen.h on startup.
 //#define SHOW_CUSTOM_BOOTSCREEN
@@ -761,13 +765,16 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 64.25, 64.25, 2560, 600 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80,80, 400, 600 }
+/* 79.83, 78.65, 397.23, 600 */
+
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #define DEFAULT_MAX_FEEDRATE          { 500, 500, 5, 25 }
+/* 400,400,50,500 */
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -781,6 +788,7 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #define DEFAULT_MAX_ACCELERATION      { 9000, 9000, 100, 10000 }
+/* 5000,9000, 100, 10000 */
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1087,7 +1095,7 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false
-#define INVERT_Y_DIR false // K8200: false
+#define INVERT_Y_DIR true // K8200: false
 #define INVERT_Z_DIR false
 
 // @section extruder
@@ -1472,7 +1480,7 @@
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
 #define EEPROM_SETTINGS       // Persistent storage with M500 and M501
-//#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
+#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #if ENABLED(EEPROM_SETTINGS)
   //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
